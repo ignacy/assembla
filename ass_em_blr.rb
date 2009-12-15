@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'rubygems'
 require 'hpricot'
 
 class AssEmBlr
@@ -43,6 +44,15 @@ class AssEmBlr
     end
   end
 
+  def print_my_active_tickets
+    puts_title_line
+    self.parsed.each do |ticket|
+      if ticket.assigned_to == @me && (ticket.status == "New" || ticket.status == "Accepted")
+        puts ticket.to_s
+      end
+    end
+  end
+  
   def print_by_status(status = "New")
     self.parsed.each do |ticket|
       if ticket.status == status
@@ -58,6 +68,13 @@ class AssEmBlr
       end
     end
   end
+
+  def puts_title_line
+    puts 
+    puts " ID  |   Assigned to:   |  Status  | Summary "
+    puts "---------------------------------------------------------------------------"
+  end
+  
 end
 
 class Ticket
@@ -71,7 +88,12 @@ class Ticket
   end
 
   def to_s
-    "ID:  #{self.id} | Assigned to:  #{self.assigned_to} | Status  #{self.status} | Summary : #{self.summary} \n"
+    "#{self.id.to_s.center(5)}|#{self.assigned_to.center(18)}|#{self.status.to_s.center(10)}| #{self.summary} \n"
   end
   
+end
+
+if __FILE__ == $0
+  @assem = AssEmBlr.new
+  @assem.print_my_active_tickets
 end
