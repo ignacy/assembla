@@ -1,0 +1,5 @@
+# This is skeleton config file - set values and rename it to config.yml
+url: "https://www.assembla.com/spaces/YOUR_SPACE_NAME/tickets"
+user: USERNAME
+password: PASSWORD
+me: MEANING_THE_PERSON_TO_WHOM_THE_TICKETS_ARE_ASSIGNED
