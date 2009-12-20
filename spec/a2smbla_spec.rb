@@ -1,4 +1,4 @@
-require 'ass_em_blr'
+require File.dirname(__FILE__) + '/../lib/a2smbla'
 
 describe AssEmBlr do
 
