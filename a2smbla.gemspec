@@ -18,7 +18,9 @@ Gem::Specification.new do |s|
   s.files = [
     ".gitignore",
      "README",
+     "Rakefile",
      "VERSION",
+     "a2smbla.gemspec",
      "ass_em_blr.rb",
      "ass_em_blr_spec.rb",
      "config_default.yml"
