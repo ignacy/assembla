@@ -1,11 +1,11 @@
-== a2smbla -- command line access to your asembla.com spaces
+## a2smbla -- command line access to your asembla.com spaces
 
 Ruby client that lets you use command line to preform some common assembla tasks, like getting filtered list of tickets, adding new ticket or changeing tickets metadata.
 
-== USAGE
-== INSTALATION
+### USAGE
+### INSTALATION
 
-== LICENSE
+### LICENSE
 
 The MIT License
 
