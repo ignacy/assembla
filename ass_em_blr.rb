@@ -1,25 +1,24 @@
 require 'open-uri'
+require 'net/http'
 require 'rubygems'
 require 'hpricot'
+require 'patron'
 
 class AssEmBlr
 
-  attr_accessor :page, :parsed
+  attr_accessor :page, :parsed, :url, :user, :password
   
   def initialize
     config = YAML::parse( File.open( "config.yml" ) )
-    url = config["url"].value
-    user = config["user"].value
-    password = config["password"].value
+    @url = config["url"].value
+    @user = config["user"].value
+    @password = config["password"].value
     @me = config["me"].value
-    self.page = Hpricot(open(url, :http_basic_authentication=>[user, password]))
+    self.page = Hpricot(open(@url, :http_basic_authentication=>[@user, @password]))
     tickets
   end
 
-  def tickets_count
-    (page/"tr.ticket_row").size
-  end
-
+  # This method parsess all active tickets in your Assembla space 
   def tickets
     self.parsed = []
     (page/"tr.ticket_row").each do |ticket|
@@ -31,12 +30,14 @@ class AssEmBlr
   end
 
   def print_tickets
+    puts_title_line
     self.parsed.each do |ticket|
       puts ticket.to_s
     end
   end
 
   def print_my_tickets
+    puts_title_line
     self.parsed.each do |ticket|
       if ticket.assigned_to == @me
         puts ticket.to_s
@@ -69,6 +70,20 @@ class AssEmBlr
     end
   end
 
+  def update_ticets_status(id, status)
+    sess = Patron::Session.new
+    #sess.insecure = false
+    sess.username = @user
+    sess.password = @password
+    sess.timeout = 10
+    sess.base_url = @url.gsub(/https/, "http")
+    sess.headers['Accept'] = 'application/xml'
+    sess.headers['Content-Type'] = 'application/xml'
+    res = sess.put("/#{id}", "<ticket><status type='integer'>#{status}</status></ticket>")
+    puts res.body
+  end
+  
+  
   def puts_title_line
     puts 
     puts " ID  |   Assigned to:   |  Status  | Summary "
@@ -96,4 +111,5 @@ end
 if __FILE__ == $0
   @assem = AssEmBlr.new
   @assem.print_my_active_tickets
+  @assem.update_ticets_status(314, 0)
 end

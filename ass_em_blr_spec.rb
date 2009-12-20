@@ -4,6 +4,7 @@ describe AssEmBlr do
 
   before(:each) do
     @assem = AssEmBlr.new
+    config = YAML::parse( File.open( "config.yml" ) )
   end
   
   context "getting selected link contents" do
@@ -13,20 +14,9 @@ describe AssEmBlr do
   end
 
   context "getting tickets to list" do
-    it "should find all active tickets" do
-      pending "Tickets count changes"
-      @assem.tickets_count.should eql 88
-    end
-
-    it "should print all tickets" do
-      pending "Makes huge mess on the result screen"
-      @assem.tickets.size.should eql 88
-      @assem.print_tickets
-    end
-
     it "should print my tickets" do
-      pending "Mess on the results page"
-      @assem.print_my_tickets
+      pending
+      @assem.print_my_tickets.should == /"#{config["me"].value}"/
     end
 
     it "should print tickets by status" do
