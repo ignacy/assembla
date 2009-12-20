@@ -2,10 +2,10 @@
 
 Ruby client that lets you use command line to preform some common assembla tasks, like getting filtered list of tickets, adding new ticket or changeing tickets metadata.
 
-== Usage
-== Instalation
+== USAGE
+== INSTALATION
 
-== License
+== LICENSE
 
 The MIT License
 
