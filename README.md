@@ -3,7 +3,14 @@
 Ruby client that lets you use command line to preform some common assembla tasks, like getting filtered list of tickets, adding new ticket or changeing tickets metadata.
 
 ### USAGE
+
+$> a2smbla
+
+This will show you all the tickets for space and user defined in ~/.assembla file.
+
 ### INSTALATION
+
+gem install a2smbla
 
 ### LICENSE
 
