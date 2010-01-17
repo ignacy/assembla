@@ -14,6 +14,9 @@ require 'rubygems'
 require 'hpricot'
 require 'patron'
 require File.dirname(__FILE__) + '/ticket'
+require File.dirname(__FILE__) + '/interpreter'
+
+$:.unshift File.join(File.dirname(__FILE__), *%w[..])
 
 class AssEmBlr
 
@@ -21,7 +24,7 @@ class AssEmBlr
 
   # This metod requires for the config file to be present
   def initialize
-    config = YAML::parse( File.open( "config.yml" ) )
+    config = YAML::parse( File.open( "config.yml"))
     @url = config["url"].value
     @user = config["user"].value
     @password = config["password"].value
@@ -43,38 +46,26 @@ class AssEmBlr
     end
   end
 
-  def print_my_tickets
+  def find_assigned_to(to = @me)
     puts_title_line
-    self.parsed.each do |ticket|
-      if ticket.assigned_to == @me
-        puts ticket.to_s
-      end
-    end
+    ass = Assigned.new
+    assigned_to = ass.evaluate(self.parsed, to)
   end
 
-  def print_my_active_tickets
+  def find_with_status(status = "New")
     puts_title_line
-    self.parsed.each do |ticket|
-      if ticket.assigned_to == @me && (ticket.status == "New" || ticket.status == "Accepted")
-        puts ticket.to_s
-      end
-    end
+    st = Status.new
+    active = st.evaluate(self.parsed, status)
+  end
+
+  def print(tickets)
+    tickets.each { |t| puts t.to_s }
   end
   
-  def print_by_status(status = "New")
-    self.parsed.each do |ticket|
-      if ticket.status == status
-        puts ticket.to_s
-      end
-    end
-  end
-
-  def print_by_id(id)
-    self.parsed.each do |ticket|
-      if ticket.id == id
-        puts ticket.to_s
-      end
-    end
+  def find_id(id)
+    puts_title_line
+    result = Id.new
+    found = result.evaluate(self.parsed, Id)
   end
 
   # Change ticket state
@@ -90,42 +81,13 @@ class AssEmBlr
     puts res.body
   end
   
-  
+  private
+
+  # This is a helper method for printing table header
   def puts_title_line
     puts 
     puts " ID  |   Assigned to:   |  Status  | Summary "
     puts "---------------------------------------------------------------------------"
   end
   
-end
-
-
-
-
-
-
-
-class Expression
-end
-
-class All < Expression
-  def evaluate(page)
-    result = []
-    (page/"tr.ticket_row").each do |ticket|
-      result.push Ticket.new((ticket/"td.number/a").first.inner_html,
-                                  (ticket/"td.summary/a").first.inner_html,
-                                  (ticket/"td.status/a").first.inner_html,
-                                  (ticket/"td.assigned_to_id/a").first.inner_html)
-    end
-    result
-  end
-end
-
-
-
-
-if __FILE__ == $0
-  @assem = AssEmBlr.new
-  @assem.print_my_active_tickets
-  @assem.update_ticets_status(314, 0)
 end

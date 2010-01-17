@@ -9,9 +9,11 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ignacy Moryc"]
-  s.date = %q{2009-12-20}
+  s.date = %q{2010-01-17}
+  s.default_executable = %q{ass}
   s.description = %q{This gem provides access to assembla tickets, listing them, creating and modyfing}
   s.email = %q{imoryc@gmail.com}
+  s.executables = ["ass"]
   s.extra_rdoc_files = [
     "README.md"
   ]
