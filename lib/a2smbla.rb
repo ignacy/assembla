@@ -32,13 +32,8 @@ class AssEmBlr
 
   # This method parsess all active tickets in your Assembla space 
   def tickets
-    self.parsed = []
-    (page/"tr.ticket_row").each do |ticket|
-      self.parsed.push Ticket.new((ticket/"td.number/a").first.inner_html,
-                                  (ticket/"td.summary/a").first.inner_html,
-                                  (ticket/"td.status/a").first.inner_html,
-                                  (ticket/"td.assigned_to_id/a").first.inner_html)
-    end
+    all = All.new
+    self.parsed = all.evaluate(self.page) 
   end
 
   def print_tickets
@@ -103,6 +98,31 @@ class AssEmBlr
   end
   
 end
+
+
+
+
+
+
+
+class Expression
+end
+
+class All < Expression
+  def evaluate(page)
+    result = []
+    (page/"tr.ticket_row").each do |ticket|
+      result.push Ticket.new((ticket/"td.number/a").first.inner_html,
+                                  (ticket/"td.summary/a").first.inner_html,
+                                  (ticket/"td.status/a").first.inner_html,
+                                  (ticket/"td.assigned_to_id/a").first.inner_html)
+    end
+    result
+  end
+end
+
+
+
 
 if __FILE__ == $0
   @assem = AssEmBlr.new
