@@ -24,7 +24,7 @@ class AssEmBlr
 
   # This metod requires for the config file to be present
   def initialize
-    config = YAML::parse( File.open( "~/.assembla"))
+    config = YAML::parse( File.open(File.expand_path("~/.assembla")))
     @url = config["url"].value
     @user = config["user"].value
     @password = config["password"].value
