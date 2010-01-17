@@ -5,15 +5,14 @@
 
 Gem::Specification.new do |s|
   s.name = %q{a2smbla}
-  s.version = "0.2.0"
+  s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ignacy Moryc"]
   s.date = %q{2010-01-17}
-  s.default_executable = %q{a2smbla}
   s.description = %q{This gem provides access to assembla tickets, listing them, creating and modyfing}
   s.email = %q{imoryc@gmail.com}
-  s.executables = ["a2smbla"]
+  s.executables = ["ass", "a2smbla"]
   s.extra_rdoc_files = [
     "README.md"
   ]
@@ -24,6 +23,7 @@ Gem::Specification.new do |s|
      "VERSION",
      "a2smbla.gemspec",
      "bin/a2smbla",
+     "bin/ass",
      "config_default.yml",
      "lib/a2smbla.rb",
      "lib/interpreter.rb",
