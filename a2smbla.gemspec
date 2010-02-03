@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{a2smbla}
-  s.version = "0.2.1"
+  s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ignacy Moryc"]
-  s.date = %q{2010-01-17}
+  s.date = %q{2010-02-03}
   s.description = %q{This gem provides access to assembla tickets, listing them, creating and modyfing}
   s.email = %q{imoryc@gmail.com}
   s.executables = ["ass", "a2smbla"]
