@@ -54,8 +54,9 @@ class AssEmBlr
   def find_my_active_tickets
     ass = find_assigned_to(@me)
     new = find_with_status("New")
+    test = find_with_status("Test")
     accepted = find_with_status("Accepted")
-    (accepted + new + ass).uniq
+    ((accepted + new + ass) - test).uniq
   end
   
   def find_with_status(status = "New")
