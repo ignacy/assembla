@@ -1,5 +1,5 @@
-
 class Expression
+
 end
 
 class All < Expression

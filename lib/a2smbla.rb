@@ -47,23 +47,28 @@ class AssEmBlr
   end
 
   def find_assigned_to(to = @me)
-    puts_title_line
-    ass = Assigned.new
+    ass = AssignedTo.new
     assigned_to = ass.evaluate(self.parsed, to)
   end
 
+  def find_my_active_tickets
+    ass = find_assigned_to(@me)
+    new = find_with_status("New")
+    accepted = find_with_status("Accepted")
+    (accepted + new + ass).uniq
+  end
+  
   def find_with_status(status = "New")
-    puts_title_line
     st = Status.new
     active = st.evaluate(self.parsed, status)
   end
 
   def print(tickets)
+    puts_title_line
     tickets.each { |t| puts t.to_s }
   end
   
   def find_id(id)
-    puts_title_line
     result = Id.new
     found = result.evaluate(self.parsed, Id)
   end
