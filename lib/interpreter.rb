@@ -29,7 +29,7 @@ class Id < Expression
   def evaluate(tickets, id)
     result = []
     tickets.each do |t|
-      result.push(t) if t.id = id
+      result.push(t) if t.id == id
     end
     result
   end
@@ -39,7 +39,7 @@ class AssignedTo < Expression
   def evaluate(tickets, to)
     result = []
     tickets.each do |t|
-      result.push(t) if t.assigned_to = to
+      result.push(t) if t.assigned_to == to
     end
     result
   end

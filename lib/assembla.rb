@@ -23,13 +23,17 @@ class AssEmBlr
   attr_accessor :page, :parsed, :url, :user, :password
 
   # This metod requires for the config file to be present
-  def initialize
-    config = YAML::parse( File.open(File.expand_path("~/.assembla")))
+  def initialize(config_file = "~/.assembla")
+    config = YAML::parse( File.open(File.expand_path(config_file)))
     @url = config["url"].value
     @user = config["user"].value
     @password = config["password"].value
     @me = config["me"].value
-    self.page = Hpricot(open(@url, :http_basic_authentication=>[@user, @password]))
+
+    (@url =~ /http/) ? \
+    self.page = Hpricot(open(@url, :http_basic_authentication=>[@user, @password])) \
+    : self.page = Hpricot(open(@url))
+
     tickets
   end
 
