@@ -74,7 +74,7 @@ class AssEmBlr
   
   def find_id(id)
     result = Id.new
-    found = result.evaluate(self.parsed, Id)
+    result.evaluate(self.parsed, id)
   end
 
   # Change ticket state
