@@ -4,28 +4,28 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{a2smbla}
+  s.name = %q{assembla}
   s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ignacy Moryc"]
-  s.date = %q{2010-02-03}
-  s.description = %q{This gem provides access to assembla tickets, listing them, creating and modyfing}
+  s.date = %q{2010-02-13}
+  s.default_executable = %q{ass}
+  s.description = %q{This gem provides access to assembla tickets. It supports listing, creating and modyfing functionality}
   s.email = %q{imoryc@gmail.com}
-  s.executables = ["ass", "a2smbla"]
+  s.executables = ["ass"]
   s.extra_rdoc_files = [
-    "README.md"
+    "README.textile"
   ]
   s.files = [
     ".gitignore",
-     "README.md",
+     "README.textile",
      "Rakefile",
      "VERSION",
-     "a2smbla.gemspec",
-     "bin/a2smbla",
+     "assembla.gemspec",
      "bin/ass",
      "config_default.yml",
-     "lib/a2smbla.rb",
+     "lib/assembla.rb",
      "lib/interpreter.rb",
      "lib/ticket.rb",
      "rdoc/classes/AssEmBlr.html",
@@ -37,15 +37,15 @@ Gem::Specification.new do |s|
      "rdoc/fr_method_index.html",
      "rdoc/index.html",
      "rdoc/rdoc-style.css",
-     "spec/a2smbla_spec.rb"
+     "spec/assembla_spec.rb"
   ]
-  s.homepage = %q{http://github.com/ignacy/a2smbla}
+  s.homepage = %q{http://github.com/ignacy/assembla}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Command line access to assembla}
   s.test_files = [
-    "spec/a2smbla_spec.rb"
+    "spec/assembla_spec.rb"
   ]
 
   if s.respond_to? :specification_version then

@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>File: README.md</title>
+  <title>File: README.textile</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
@@ -47,16 +47,16 @@
 
 
   <div id="fileHeader">
-    <h1>README.md</h1>
+    <h1>README.textile</h1>
     <table class="header-table">
     <tr class="top-aligned-row">
       <td><strong>Path:</strong></td>
-      <td>README.md
+      <td>README.textile
       </td>
     </tr>
     <tr class="top-aligned-row">
       <td><strong>Last Update:</strong></td>
-      <td>Sun Dec 20 16:58:29 +0100 2009</td>
+      <td>Sat Feb 13 13:16:26 +0100 2010</td>
     </tr>
     </table>
   </div>
@@ -70,18 +70,38 @@
 
     <div id="description">
       <p>
-## a2smbla &#8212; command line access to your asembla.com spaces
+h1. assembla - command line access toy your assembla.com spaces
+</p>
+<ol>
+<li type="a">This gem is a Ruby client that lets you use command line to preform some
+common assembla tasks, like getting filtered list of tickets, adding new
+ticket or changeing tickets metadata.
+
+</li>
+</ol>
+<p>
+h2. USAGE
+</p>
+<ol>
+<li type="a">After you install the gem you need to create ~/.assembla config file with
+following data:
+
+</li>
+</ol>
+<p>
+p{background:888}. url: &quot;<a
+href="https://www.assembla.com/spaces/YOUR_SPACE_NAME/tickets">www.assembla.com/spaces/YOUR_SPACE_NAME/tickets</a>&quot;
+user: USERNAME password: PASSWORD me:
+MEANING_THE_PERSON_TO_WHOM_THE_TICKETS_ARE_ASSIGNED
 </p>
 <p>
-Ruby client that lets you use command line to preform some common assembla
-tasks, like getting filtered list of tickets, adding new ticket or
-changeing tickets metadata.
+h2. INSTALATION
 </p>
 <p>
-### USAGE ### INSTALATION
+p{background:888}. gem install a2smbla
 </p>
 <p>
-### LICENSE
+h2. LICENSE
 </p>
 <p>
 The MIT License

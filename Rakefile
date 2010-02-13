@@ -48,7 +48,7 @@ Rake::RDocTask.new do |t|
   t.title = "assembla, command line assembla.com client"
   t.options << '--line-numbers' << '--inline-source' << '-A cattr_accessor=object'
   t.options << '--charset' << 'utf-8'
-  t.rdoc_files.include('README.md')
+  t.rdoc_files.include('README.textile')
   t.rdoc_files.include('lib/assembla.rb')
 end
 
