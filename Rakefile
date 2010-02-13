@@ -3,11 +3,11 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
-    gemspec.name = "a2smbla"
+    gemspec.name = "assembla"
     gemspec.summary = "Command line access to assembla"
-    gemspec.description = "This gem provides access to assembla tickets, listing them, creating and modyfing"
+    gemspec.description = "This gem provides access to assembla tickets. It supports listing, creating and modyfing functionality"
     gemspec.email = "imoryc@gmail.com"
-    gemspec.homepage = "http://github.com/ignacy/a2smbla"
+    gemspec.homepage = "http://github.com/ignacy/assembla"
     gemspec.authors = ["Ignacy Moryc"]
   end
 rescue LoadError
@@ -45,10 +45,10 @@ require 'rake/rdoctask'
 
 Rake::RDocTask.new do |t|
   t.rdoc_dir = 'rdoc'
-  t.title = "a2smbla, command line assembla.com client"
+  t.title = "assembla, command line assembla.com client"
   t.options << '--line-numbers' << '--inline-source' << '-A cattr_accessor=object'
   t.options << '--charset' << 'utf-8'
   t.rdoc_files.include('README.md')
-  t.rdoc_files.include('lib/a2smbla.rb')
+  t.rdoc_files.include('lib/assembla.rb')
 end
 

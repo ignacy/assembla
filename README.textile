@@ -1,18 +1,21 @@
-## a2smbla -- command line access to your asembla.com spaces
+h1. assembla - command line access toy your assembla.com spaces
 
-Ruby client that lets you use command line to preform some common assembla tasks, like getting filtered list of tickets, adding new ticket or changeing tickets metadata.
+p. This gem is a Ruby client that lets you use command line to preform some common assembla tasks, like getting filtered list of tickets, adding new ticket or changeing tickets metadata.
 
-### USAGE
+h2. USAGE
 
-$> a2smbla
+p. After you install the gem you need to create ~/.assembla config file with following data:
 
-This will show you all the tickets for space and user defined in ~/.assembla file.
+p{background:#888}. url: "https://www.assembla.com/spaces/YOUR_SPACE_NAME/tickets"
+user: USERNAME
+password: PASSWORD
+me: MEANING_THE_PERSON_TO_WHOM_THE_TICKETS_ARE_ASSIGNED
 
-### INSTALATION
+h2. INSTALATION
 
-gem install a2smbla
+p{background:#888}. gem install a2smbla
 
-### LICENSE
+h2. LICENSE
 
 The MIT License
 
