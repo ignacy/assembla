@@ -1,9 +1,0 @@
-#!/usr/bin/env ruby
-
-$:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
-
-require 'a2smbla'
-
-@assem = AssEmBlr.new
-@assem.print(@assem.find_with_status("Test"))
-

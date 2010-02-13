@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../lib/a2smbla'
+require File.dirname(__FILE__) + '/../lib/assembla'
 
 describe AssEmBlr do
 
