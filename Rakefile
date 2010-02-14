@@ -9,6 +9,7 @@ begin
     gemspec.email = "imoryc@gmail.com"
     gemspec.homepage = "http://github.com/ignacy/assembla"
     gemspec.authors = ["Ignacy Moryc"]
+    gemspec.add_dependency('hpricot', '>= 0.8.1')
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install jeweler"
