@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{assembla}
-  s.version = "0.3.0"
+  s.version = "0.7.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ignacy Moryc"]
-  s.date = %q{2010-02-13}
+  s.date = %q{2010-02-14}
   s.default_executable = %q{ass}
   s.description = %q{This gem provides access to assembla tickets. It supports listing, creating and modyfing functionality}
   s.email = %q{imoryc@gmail.com}
@@ -26,18 +26,21 @@ Gem::Specification.new do |s|
      "bin/ass",
      "config_default.yml",
      "lib/assembla.rb",
+     "lib/extensions.rb",
      "lib/interpreter.rb",
      "lib/ticket.rb",
      "rdoc/classes/AssEmBlr.html",
      "rdoc/created.rid",
-     "rdoc/files/README_md.html",
-     "rdoc/files/lib/a2smbla_rb.html",
+     "rdoc/files/README_textile.html",
+     "rdoc/files/lib/assembla_rb.html",
      "rdoc/fr_class_index.html",
      "rdoc/fr_file_index.html",
      "rdoc/fr_method_index.html",
      "rdoc/index.html",
      "rdoc/rdoc-style.css",
-     "spec/assembla_spec.rb"
+     "spec/assembla_spec.rb",
+     "spec/mock.html",
+     "spec/test_config.yml"
   ]
   s.homepage = %q{http://github.com/ignacy/assembla}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -53,9 +56,12 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<hpricot>, [">= 0.8.1"])
     else
+      s.add_dependency(%q<hpricot>, [">= 0.8.1"])
     end
   else
+    s.add_dependency(%q<hpricot>, [">= 0.8.1"])
   end
 end
 
