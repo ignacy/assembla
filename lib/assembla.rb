@@ -12,7 +12,6 @@ require 'open-uri'
 require 'net/http'
 require 'rubygems'
 require 'hpricot'
-require 'patron'
 require File.dirname(__FILE__) + '/ticket'
 require File.dirname(__FILE__) + '/interpreter'
 
@@ -77,17 +76,17 @@ class AssEmBlr
     result.evaluate(self.parsed, id)
   end
 
-  # Change ticket state
-  def update_ticets_status(id, status)
-    sess = Patron::Session.new
-    sess.username = @user
-    sess.password = @password
-    sess.timeout = 10
-    sess.base_url = @url.gsub(/https/, "http")
-    sess.headers['Accept'] = 'application/xml'
-    sess.headers['Content-Type'] = 'application/xml'
-    res = sess.put("/#{id}", "<ticket><status type='integer'>#{status}</status></ticket>")
-    puts res.body
+  def update_ticket_to_new(id)
+    space = @url.gsub(/https:\/\/www\.assembla.com(.+)/, '\1')
+    url = space + '/' + id.to_s
+    puts url
+    request = Net::HTTP::Put.new(url, initheader = {'Content-Type' => 'application/xml', 'Accept' => 'application/xml'})
+    request.body = "<ticket><status type='integer'>0</status></ticket>"
+    request.basic_auth @user, @password
+    Net::HTTP.start("www.assembla.com", 80 ) do |http|
+      response = http.request(request)
+      puts response      
+    end
   end
   
   private
