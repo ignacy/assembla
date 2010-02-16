@@ -12,7 +12,7 @@ class Ticket
   attr_accessor :id, :summary, :status, :assigned_to
   
   def initialize(id, summary, status, assigned_to)
-    self.id = id
+    self.id = id.to_i
     self.summary = summary
     self.status = status
     self.assigned_to = assigned_to
