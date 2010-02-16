@@ -40,3 +40,12 @@ class AssignedTo < Expression
     end
   end
 end
+
+class Summary < Expression
+  def evaluate(tickets, text)
+    returning result = [] do
+      tickets.each { |t| result.push(t) if t.summary.match(text) }
+    end
+  end
+end
+

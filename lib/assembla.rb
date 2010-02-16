@@ -67,6 +67,11 @@ class AssEmBlr
     active = st.evaluate(self.parsed, status)
   end
 
+  def find_with_summary(text)
+    sum = Summary.new
+    summary = sum.evaluate(self.parsed, text)
+  end
+  
   def print(tickets)
     puts_title_line
     tickets.each { |t| puts t.to_s }
@@ -80,7 +85,6 @@ class AssEmBlr
   def update_ticket_to_new(id)
     space = @url.gsub(/https:\/\/www\.assembla.com(.+)/, '\1')
     url = space + '/' + id.to_s
-    puts url
     request = Net::HTTP::Put.new(url, initheader = {'Content-Type' => 'application/xml', 'Accept' => 'application/xml'})
     request.body = "<ticket><status type='integer'>0</status></ticket>"
     request.basic_auth @user, @password

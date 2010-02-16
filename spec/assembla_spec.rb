@@ -31,6 +31,13 @@ describe AssEmBlr do
       test = @assem.find_with_status("Test")
       test.length.should eql(2)
     end
+
+    it "should filter tickets by summary text" do
+      se = @assem.find_with_summary("else")
+      se.first.summary.should match /Somethign else/
+    end
     
   end
+
+  
 end
