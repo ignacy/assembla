@@ -76,12 +76,18 @@ class AssEmBlr
     puts_title_line
     tickets.each { |t| puts t.to_s }
   end
-  
+
   def find_id(id)
     result = Id.new
     result.evaluate(self.parsed, id)
   end
 
+  def find_assigned_with_status(to, status)
+    st = Status.new
+    as = AssignedTo.new
+    st.evaluate(self.parsed, status) | as.evaluate(self.parsed, to)
+  end
+  
   def update_ticket_to_new(id)
     space = @url.gsub(/https:\/\/www\.assembla.com(.+)/, '\1')
     url = space + '/' + id.to_s

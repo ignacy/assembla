@@ -15,7 +15,8 @@ describe AssEmBlr do
     end
   end
 
-  context "filterind tickets" do
+  # TODO I should refactor this so that there's only one find method
+  context "filtering tickets" do
     it "should filter tickets by assigned user" do
       mine = @assem.find_assigned_to("Above & Beyond")
       mine.length.should eql(2)
@@ -36,8 +37,12 @@ describe AssEmBlr do
       se = @assem.find_with_summary("else")
       se.first.summary.should match /Somethign else/
     end
-    
-  end
 
-  
+    context "with multiple filters " do
+      it "should filter tickets with status and assigned user" do
+        a = @assem.find_assigned_with_status("Armin Van B", "Test")
+        a.count.should eql(5)
+      end      
+    end
+  end
 end
