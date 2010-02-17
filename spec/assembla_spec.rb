@@ -24,17 +24,17 @@ describe AssEmBlr do
 
     #TODO find_id should return only one element
     it "should filter tickets by id" do
-      with_id = @assem.find_id(841)
+      with_id = @assem.find({:id => 841})
       with_id.first.summary.should match /Fix tab order/
     end
 
     it "should filter tickets by status" do
-      test = @assem.find_with_status("Test")
+      test = @assem.find({:status => "Test"})
       test.length.should eql(2)
     end
 
     it "should filter tickets by summary text" do
-      se = @assem.find_with_summary("else")
+      se = @assem.find({:summary => "else"})
       se.first.summary.should match /Somethign else/
     end
 

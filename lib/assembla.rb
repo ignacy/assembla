@@ -1,6 +1,5 @@
 # This program allows you to use command line to perform
-# your typical assembla.com tasks. USing it you can check
-# for new tickets, change status, reasign them or create new ones
+# your typical assembla.com tasks. 
 #
 # Author::    Ignacy Moryc  (mailto:imoryc@gmail.com)
 # License::   MIT
@@ -42,6 +41,12 @@ class AssEmBlr
     self.parsed = all.evaluate(self.page) 
   end
 
+  def find(args)
+    return find_id(args[:id]) if (args[:id])
+    return find_with_status(args[:status]) if (args[:status])
+    return find_with_summary(args[:summary]) if (args[:summary])
+  end
+  
   def print_tickets
     puts_title_line
     self.parsed.each do |ticket|
