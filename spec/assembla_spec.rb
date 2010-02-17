@@ -39,10 +39,16 @@ describe AssEmBlr do
     end
 
     context "with multiple filters " do
-      it "should filter tickets with status and assigned user" do
-        a = @assem.find_assigned_with_status("Armin Van B", "Test")
+      it "should filter tickets with status or assigned user" do
+        a = @assem.find_assigned_or_with_status("Armin Van B", "Test")
         a.count.should eql(5)
-      end      
+      end
+
+      it "should filter tickets with status and assigned user" do
+        a = @assem.find_assigned_and_with_status("Armin Van B", "Test")
+        a.count.should eql(1)
+      end
+      
     end
   end
 end

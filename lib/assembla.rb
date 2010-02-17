@@ -82,10 +82,16 @@ class AssEmBlr
     result.evaluate(self.parsed, id)
   end
 
-  def find_assigned_with_status(to, status)
+  def find_assigned_or_with_status(to, status)
     st = Status.new
     as = AssignedTo.new
     st.evaluate(self.parsed, status) | as.evaluate(self.parsed, to)
+  end
+
+  def find_assigned_and_with_status(to, status)
+    st = Status.new
+    as = AssignedTo.new
+    st.evaluate(self.parsed, status) & as.evaluate(self.parsed, to)
   end
   
   def update_ticket_to_new(id)

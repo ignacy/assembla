@@ -2,9 +2,13 @@ require File.dirname(__FILE__) + '/extensions'
 
 class Expression
 
-  def |(other)
-    Or.new(self.evaluate, other.evaluate)
-  end
+  # def |(other)
+  #   Or.new(self, other)
+  # end
+
+  # def &(other)
+  #   And.new(self, other)
+  # end
   
 end
 
@@ -53,8 +57,14 @@ class Summary < Expression
   end
 end
 
-class Or < Expression
- def initialize(tickets1, tickets2)
-   (tickets1 + tickets).sort.uniq
- end
-end
+# class Or < Expression
+#  def initialize(tickets1, tickets2)
+#    (tickets1 + tickets).sort.uniq
+#  end
+# end
+
+# class And < Expression
+#  def initialize(tickets1, tickets2)
+#    (tickets1 + tickets).sort.uniq
+#  end
+# end
