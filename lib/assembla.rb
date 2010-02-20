@@ -20,13 +20,12 @@ class AssEmBlr
 
   attr_accessor :page, :parsed, :url, :user, :password
 
-  # This metod requires for the config file to be present
   def initialize(config_file = "~/.assembla")
     config = YAML::parse( File.open(File.expand_path(config_file)))
-    @url = config["url"].value
-    @user = config["user"].value
+    @url      = config["url"].value
+    @user     = config["user"].value
     @password = config["password"].value
-    @me = config["me"].value
+    @me       = config["me"].value
 
     (@url =~ /http/) ? \
     self.page = Hpricot(open(@url, :http_basic_authentication=>[@user, @password])) \
@@ -84,7 +83,7 @@ class AssEmBlr
 
   def find_id(id)
     result = Id.new
-    result.evaluate(self.parsed, id)
+    result.evaluate(self.parsed, id).first
   end
 
   def find_assigned_or_with_status(to, status)
@@ -99,11 +98,12 @@ class AssEmBlr
     st.evaluate(self.parsed, status) & as.evaluate(self.parsed, to)
   end
   
-  def update_ticket_to_new(id)
+  def update_ticket_to_new(id, status)
+    status_number = get_id_from_status(status)
     space = @url.gsub(/https:\/\/www\.assembla.com(.+)/, '\1')
     url = space + '/' + id.to_s
     request = Net::HTTP::Put.new(url, initheader = {'Content-Type' => 'application/xml', 'Accept' => 'application/xml'})
-    request.body = "<ticket><status type='integer'>0</status></ticket>"
+    request.body = "<ticket><status type='integer'>#{status_number}</status></ticket>"
     request.basic_auth @user, @password
     Net::HTTP.start("www.assembla.com", 80 ) do |http|
       response = http.request(request)
@@ -113,6 +113,15 @@ class AssEmBlr
   
   private
 
+  def get_id_from_status(s)
+    statuses = { "New" => 0,
+      "Accepted" => 1,
+      "Invalid" => 2,
+      "Fixed" => 3,
+      "Test" => 4 }
+    return statuses[s]
+  end
+  
   # This is a helper method for printing table header
   def puts_title_line
     puts 
