@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{assembla}
-  s.version = "0.7.3"
+  s.version = "0.8.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ignacy Moryc"]
-  s.date = %q{2010-02-14}
+  s.date = %q{2010-03-15}
   s.default_executable = %q{ass}
   s.description = %q{This gem provides access to assembla tickets. It supports listing, creating and modyfing functionality}
   s.email = %q{imoryc@gmail.com}
@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
      "README.textile",
      "Rakefile",
      "VERSION",
+     "a2smbla-0.3.0.gem",
      "assembla.gemspec",
      "bin/ass",
      "config_default.yml",
