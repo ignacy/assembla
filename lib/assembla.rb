@@ -3,8 +3,7 @@
 #
 # Author::    Ignacy Moryc  (mailto:imoryc@gmail.com)
 # License::   MIT
-#
-# This is the main program class
+
 
 
 require 'open-uri'
@@ -27,6 +26,8 @@ class AssEmBlr
     @password = config["password"].value
     @me       = config["me"].value
 
+    # For testing purposes if the url has no HTTP in it we assume
+    # that assembla space is saved to a local file
     (@url =~ /http/) ? \
     self.page = Hpricot(open(@url, :http_basic_authentication=>[@user, @password])) \
     : self.page = Hpricot(open(@url))
@@ -40,25 +41,30 @@ class AssEmBlr
     self.parsed = all.evaluate(self.page) 
   end
 
+  # Find operates with different arguments:
+  # * :id - ticket's id number
+  # * :status - The same as Assembla ticket status ["New", "Accepted", "Test", "Fixed", "Invalid"]
+  # * :summary - ticket description
+  # * :assigned_to - the person to whom the ticket is assigned to
+  # Also you can use params in pairs, like this:
+  # * :assigned_to and :status
   def find(args)
-    return find_id(args[:id]) if (args[:id])
-    return find_with_status(args[:status]) if (args[:status])
-    return find_with_summary(args[:summary]) if (args[:summary])
-  end
-  
-  def print_tickets
-    puts_title_line
-    self.parsed.each do |ticket|
-      puts ticket.to_s
+    if args.length == 1
+      return find_id(args[:id]) if (args[:id])
+      return find_with_status(args[:status]) if (args[:status])
+      return find_with_summary(args[:summary]) if (args[:summary])
+      return find_assigned_to(args[:assigned_to]) if (args[:assigned_to])
+    elsif args.length == 2
+      return find_assigned_and_with_status(args[:assigned_to], args[:status]) if (args[:status] && args[:assigned_to])
     end
   end
 
-  def find_assigned_to(to = @me)
+  def find_assigned_to(to = @me) #:nodoc:
     ass = AssignedTo.new
     assigned_to = ass.evaluate(self.parsed, to)
   end
 
-  def find_my_active_tickets
+  def find_my_active_tickets #:nodoc:
     ass = find_assigned_to(@me)
     new = find_with_status("New")
     test = find_with_status("Test")
@@ -66,39 +72,47 @@ class AssEmBlr
     ((accepted + new + ass) - test).uniq
   end
   
-  def find_with_status(status = "New")
+  def find_with_status(status = "New") #:nodoc:
     st = Status.new
     active = st.evaluate(self.parsed, status)
   end
 
-  def find_with_summary(text)
+  def find_with_summary(text) #:nodoc:
     sum = Summary.new
     summary = sum.evaluate(self.parsed, text)
   end
-  
+
+  # Prints the tickets to STDOUT
   def print(tickets)
     puts_title_line
     tickets.each { |t| puts t.to_s }
   end
 
-  def find_id(id)
+  def find_id(id) #:nodoc:
     result = Id.new
     result.evaluate(self.parsed, id).first
   end
 
-  def find_assigned_or_with_status(to, status)
-    st = Status.new
-    as = AssignedTo.new
-    st.evaluate(self.parsed, status) | as.evaluate(self.parsed, to)
-  end
+  # This function uses OR condition for search
+  # I commented it out for now - because I can see
+  # no use for it.
+  # def find_assigned_or_with_status(to, status)
+  #   st = Status.new
+  #   as = AssignedTo.new
+  #   st.evaluate(self.parsed, status) | as.evaluate(self.parsed, to)
+  # end
 
-  def find_assigned_and_with_status(to, status)
+  def find_assigned_and_with_status(to, status) #:nodoc:
     st = Status.new
     as = AssignedTo.new
     st.evaluate(self.parsed, status) & as.evaluate(self.parsed, to)
   end
-  
-  def update_ticket_to_new(id, status)
+
+  # This method uses Assembla's Ticket REST API
+  # http://www.assembla.com/wiki/show/breakoutdocs/Ticket_REST_API
+  # to change tickets status.
+  # It returns text of http response from Aseembla server.
+  def update_tickets_status(id, status)
     status_number = get_id_from_status(status)
     space = @url.gsub(/https:\/\/www\.assembla.com(.+)/, '\1')
     url = space + '/' + id.to_s
@@ -113,7 +127,7 @@ class AssEmBlr
   
   private
 
-  def get_id_from_status(s)
+  def get_id_from_status(s) #:nodoc:
     statuses = { "New" => 0,
       "Accepted" => 1,
       "Invalid" => 2,

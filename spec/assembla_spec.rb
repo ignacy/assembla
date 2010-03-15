@@ -22,13 +22,7 @@ describe AssEmBlr do
   
   context "searching for tickets" do
     it "should use 'Assiged To' filter" do
-      pending("Extend the find method")
       mine = @assem.find({:assigned_to => "Above & Beyond"})
-      mine.length.should eql(2)
-    end
-    
-    it "should filter tickets by assigned user" do
-      mine = @assem.find_assigned_to("Above & Beyond")
       mine.length.should eql(2)
     end
     
@@ -48,16 +42,11 @@ describe AssEmBlr do
     end
 
     context "with multiple filters " do
-      it "should find with status OR assigned to" do
-        pending()
-        a = @assem.find({:status => "Test", :assigned_to => "Armin Van B"})
-        a.count.should eql(5)
-      end
-      
-      it "should filter tickets with status or assigned user" do
-        a = @assem.find_assigned_or_with_status("Armin Van B", "Test")
-        a.count.should eql(5)
-      end
+      # see => find_assigned_or_with_status description
+      # it "should filter tickets with status or assigned user" do
+      #   a = @assem.find_assigned_or_with_status("Armin Van B", "Test")
+      #   a.count.should eql(5)
+      # end
 
       it "should filter tickets with status and assigned user" do
         a = @assem.find_assigned_and_with_status("Armin Van B", "Test")
@@ -65,7 +54,6 @@ describe AssEmBlr do
       end
 
       it "should find tickets with status AND assigned user" do
-        pending
         a = @assem.find({:assigned_to => "Armin Van B", :status => "Test"})
         a.count.should eql(1)
       end

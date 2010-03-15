@@ -1,6 +1,9 @@
+# Author::    Ignacy Moryc  (mailto:imoryc@gmail.com)
+# License::   MIT
+
 require File.dirname(__FILE__) + '/extensions'
 
-class Expression
+class Expression #:nodoc:
 
   # def |(other)
   #   Or.new(self, other)
@@ -13,6 +16,7 @@ class Expression
 end
 
 class All < Expression
+  # Returns all ticket from current space
   def evaluate(page)
     returning result = [] do 
       (page/"tr.ticket_row").each do |ticket|
@@ -26,6 +30,7 @@ class All < Expression
 end
 
 class Status < Expression
+  # Searches tickets by status
   def evaluate(tickets, status)
     returning result = [] do
       tickets.each { |t| result.push(t) if t.status == status }
@@ -34,6 +39,7 @@ class Status < Expression
 end
 
 class Id < Expression
+  # Searches tickets by id
   def evaluate(tickets, id)
     returning result = [] do
       tickets.each { |t| result.push(t) if t.id == id }
@@ -42,6 +48,7 @@ class Id < Expression
 end
 
 class AssignedTo < Expression
+  # Searches tickets by assigned user
   def evaluate(tickets, to)
     returning result = [] do
       tickets.each { |t| result.push(t) if t.assigned_to == to }
@@ -50,6 +57,7 @@ class AssignedTo < Expression
 end
 
 class Summary < Expression
+  # Searches tickets by summary
   def evaluate(tickets, text)
     returning result = [] do
       tickets.each { |t| result.push(t) if t.summary.match(text) }
