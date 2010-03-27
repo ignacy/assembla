@@ -6,43 +6,58 @@ require 'assembla'
 require 'optparse'
 
 options = {}
+@assem = AssEmBlr.new
+
 OptionParser.new do |opts|
   opts.banner = "Usage: ass [options]"
 
+  opts.on("-a", "--all", "Print your active and new tickets") do |a|
+    options[:all] = a
+    @assem.print(@assem.find_my_active_tickets)
+  end
+
+  opts.on("-i", "--id ID", "Get ticket with id = ID") do |id|
+    idid = @assem.find({:id => id.to_i})
+    puts idid.details
+  end
+  
+
+  opts.on("-s", "--status STATUS", "Find tickets with given status") do |status|
+    options[:status] = status
+    with_id = @assem.find({:status => options[:status]})
+    @assem.print(with_id)
+  end
+
+
+  opts.on( '-t', '--to TO', 'Assigned to TO, example: ass -t "John Doe" ') do |to|
+     @assem.print(@assem.find({:assigned_to => to}))
+  end
+
+  opts.on("--toandstatus DATA", 'Assigned to TO and with STATUS, call like this: ass --toandstatus "Name Surname"__New ') do |data|
+    to, status = data.split(/__/)
+    @assem.print(@assem.find({:assigned_to => to, :status => status}))
+  end
+
+  opts.on("-u", "--updateStatus DATA", 'Change tickets status, call like this: ass -u ID__NEW_STATUS') do |data|
+    id, status = data.split(/__/)
+    @assem.update_tickets_status(id, status)
+  end
+
+  opts.on("-d", "--updateDescription DATA", 'Change tickets descriptino. Exmple ass -d ID__"New description text"') do |data|
+    id, description = data.split(/__/)
+    @assem.update_tickets_description(id, description)
+  end
+  
   opts.on("-v", "--version", "Get version") do |v|
     options[:verbose] = v
     puts "Assembla version 0.8.0"
   end
 
-  opts.on("-a", "--all", "Print your active and new tickets") do |a|
-    options[:all] = a
-    @assem = AssEmBlr.new
-    @assem.print(@assem.find_my_active_tickets)
-  end
-
-  opts.on("-s", "--status STATUS", "Find ticket with given status") do |status|
-    options[:status] = status
-    @assem = AssEmBlr.new
-    with_id = @assem.find({:status => options[:status]})
-    @assem.print(with_id)
-  end
-
-  opts.on( '-h', '--help', 'Display this screen' ) do
+  opts.on( '-h', '--help', 'Display this information' ) do
     puts opts
     exit
   end
-
-  opts.on( '-t', '--to TO', 'Assigned to TO, example: ass -t "John Doe" ') do |to|
-    @assem = AssEmBlr.new
-    @assem.print(@assem.find({:assigned_to => to}))
-  end
-
-  opts.on("--toandstatus DATA", 'Assigned to TO and with STATUS, call like this: ass --toandstatus "Name Surname"__New ') do |data|
-    to, status = data.split(/__/)
-    puts "to #{to} status #{status}"
-    @assem = AssEmBlr.new
-    @assem.print(@assem.find({:assigned_to => to, :status => status}))
-  end
+  
 
 end.parse!
 

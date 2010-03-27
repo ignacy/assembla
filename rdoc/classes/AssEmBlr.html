@@ -90,6 +90,7 @@
       <a href="#M000001">new</a>&nbsp;&nbsp;
       <a href="#M000004">print</a>&nbsp;&nbsp;
       <a href="#M000002">tickets</a>&nbsp;&nbsp;
+      <a href="#M000006">update_tickets_description</a>&nbsp;&nbsp;
       <a href="#M000005">update_tickets_status</a>&nbsp;&nbsp;
       </div>
     </div>
@@ -256,11 +257,11 @@ Prints the <a href="AssEmBlr.html#M000002">tickets</a> to STDOUT
             onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000004-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/assembla.rb, line 86</span>
-86:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">print</span>(<span class="ruby-identifier">tickets</span>)
-87:     <span class="ruby-identifier">puts_title_line</span>
-88:     <span class="ruby-identifier">tickets</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">to_s</span> }
-89:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/assembla.rb, line 85</span>
+85:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">print</span>(<span class="ruby-identifier">tickets</span>)
+86:     <span class="ruby-identifier">puts_title_line</span>
+87:     <span class="ruby-identifier">tickets</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">to_s</span> }
+88:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -294,6 +295,31 @@ in your Assembla space
         </div>
       </div>
 
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="#M000006" class="method-signature">
+          <span class="method-name">update_tickets_description</span><span class="method-args">(id, description)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000006-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/assembla.rb, line 121</span>
+121:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_tickets_description</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">description</span>)
+122:     <span class="ruby-identifier">request</span> = <span class="ruby-identifier">prepare_request</span>(<span class="ruby-identifier">id</span>)
+123:     <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span> = <span class="ruby-node">&quot;&lt;ticket&gt;&lt;description&gt;#{description}&lt;/description&gt;&lt;/ticket&gt;&quot;</span>
+124:     <span class="ruby-identifier">send_request</span>(<span class="ruby-identifier">request</span>)
+125:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
       <div id="method-M000005" class="method-detail">
         <a name="M000005"></a>
 
@@ -314,19 +340,12 @@ text of http response from Aseembla server.
             onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000005-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/assembla.rb, line 115</span>
-115:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_tickets_status</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">status</span>)
-116:     <span class="ruby-identifier">status_number</span> = <span class="ruby-identifier">get_id_from_status</span>(<span class="ruby-identifier">status</span>)
-117:     <span class="ruby-identifier">space</span> = <span class="ruby-ivar">@url</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/https:\/\/www\.assembla.com(.+)/</span>, <span class="ruby-value str">'\1'</span>)
-118:     <span class="ruby-identifier">url</span> = <span class="ruby-identifier">space</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'/'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">to_s</span>
-119:     <span class="ruby-identifier">request</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Put</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">url</span>, <span class="ruby-identifier">initheader</span> = {<span class="ruby-value str">'Content-Type'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'application/xml'</span>, <span class="ruby-value str">'Accept'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'application/xml'</span>})
-120:     <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span> = <span class="ruby-node">&quot;&lt;ticket&gt;&lt;status type='integer'&gt;#{status_number}&lt;/status&gt;&lt;/ticket&gt;&quot;</span>
-121:     <span class="ruby-identifier">request</span>.<span class="ruby-identifier">basic_auth</span> <span class="ruby-ivar">@user</span>, <span class="ruby-ivar">@password</span>
-122:     <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">start</span>(<span class="ruby-value str">&quot;www.assembla.com&quot;</span>, <span class="ruby-value">80</span> ) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">http</span><span class="ruby-operator">|</span>
-123:       <span class="ruby-identifier">response</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">request</span>(<span class="ruby-identifier">request</span>)
-124:       <span class="ruby-identifier">puts</span> <span class="ruby-identifier">response</span>      
-125:     <span class="ruby-keyword kw">end</span>
-126:   <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/assembla.rb, line 114</span>
+114:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_tickets_status</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">status</span>)
+115:     <span class="ruby-identifier">request</span> = <span class="ruby-identifier">prepare_request</span>(<span class="ruby-identifier">id</span>)
+116:     <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span> = <span class="ruby-node">&quot;&lt;ticket&gt;&lt;status type='integer'&gt;#{get_id_from_status(status)}&lt;/status&gt;&lt;/ticket&gt;&quot;</span>
+117:     <span class="ruby-identifier">send_request</span>(<span class="ruby-identifier">request</span>)
+118:   <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

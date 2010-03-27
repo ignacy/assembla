@@ -41,9 +41,7 @@ end
 class Id < Expression
   # Searches tickets by id
   def evaluate(tickets, id)
-    returning result = [] do
-      tickets.each { |t| result.push(t) if t.id == id }
-    end
+    tickets.detect { |t| t.id == id }
   end
 end
 

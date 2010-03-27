@@ -11,6 +11,17 @@ user: USERNAME
 password: PASSWORD
 me: MEANING_THE_PERSON_TO_WHOM_THE_TICKETS_ARE_ASSIGNED
 
+bc.. Usage: ass [options]
+    -a, --all                        Print your active and new tickets
+    -i, --id ID                      Get ticket with id = ID
+    -s, --status STATUS              Find tickets with given status
+    -t, --to TO                      Assigned to TO, example: ass -t "John Doe" 
+        --toandstatus DATA           Assigned to TO and with STATUS, call like this: ass --toandstatus "Name Surname"__New 
+    -u, --updateStatus DATA          Change tickets status, call like this: ass -u ID__NEW_STATUS
+    -d, --updateDescription DATA     Change tickets descriptino. Exmple ass -d ID__"New description text"
+    -v, --version                    Get version
+    -h, --help                       Display this information
+
 h2. INSTALATION
 
 p{background:#888}. gem install a2smbla

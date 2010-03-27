@@ -56,7 +56,7 @@
     </tr>
     <tr class="top-aligned-row">
       <td><strong>Last Update:</strong></td>
-      <td>Sat Feb 13 13:16:26 +0100 2010</td>
+      <td>Sat Mar 27 13:26:18 +0100 2010</td>
     </tr>
     </table>
   </div>
@@ -94,6 +94,20 @@ href="https://www.assembla.com/spaces/YOUR_SPACE_NAME/tickets">www.assembla.com/
 user: USERNAME password: PASSWORD me:
 MEANING_THE_PERSON_TO_WHOM_THE_TICKETS_ARE_ASSIGNED
 </p>
+<p>
+bc.. Usage: ass [options]
+</p>
+<pre>
+    -a, --all                        Print your active and new tickets
+    -i, --id ID                      Get ticket with id = ID
+    -s, --status STATUS              Find tickets with given status
+    -t, --to TO                      Assigned to TO, example: ass -t &quot;John Doe&quot;
+        --toandstatus DATA           Assigned to TO and with STATUS, call like this: ass --toandstatus &quot;Name Surname&quot;__New
+    -u, --updateStatus DATA          Change tickets status, call like this: ass -u ID__NEW_STATUS
+    -d, --updateDescription DATA     Change tickets descriptino. Exmple ass -d ID__&quot;New description text&quot;
+    -v, --version                    Get version
+    -h, --help                       Display this information
+</pre>
 <p>
 h2. INSTALATION
 </p>

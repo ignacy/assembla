@@ -21,5 +21,19 @@ class Ticket
   def to_s #:nodoc:
     "#{self.id.to_s.center(5)}|#{self.assigned_to.center(18)}|#{self.status.to_s.center(10)}| #{self.summary} \n"
   end
+
+  def details
+    details = <<DETAILS
+Id:          #{self.id}
+Status:      #{self.status.to_s}
+AssignedTo:  #{self.assigned_to}
+-----------------------------------------------
+Sumary:      #{self.summary}
+-----------------------------------------------
+DETAILS
+    
+    
+  end
+  
   
 end

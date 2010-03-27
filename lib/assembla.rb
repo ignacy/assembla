@@ -89,7 +89,7 @@ class AssEmBlr
 
   def find_id(id) #:nodoc:
     result = Id.new
-    result.evaluate(self.parsed, id).first
+    result.evaluate(self.parsed, id)
   end
 
   # This function uses OR condition for search
@@ -112,19 +112,34 @@ class AssEmBlr
   # to change tickets status.
   # It returns text of http response from Aseembla server.
   def update_tickets_status(id, status)
-    status_number = get_id_from_status(status)
-    space = @url.gsub(/https:\/\/www\.assembla.com(.+)/, '\1')
-    url = space + '/' + id.to_s
-    request = Net::HTTP::Put.new(url, initheader = {'Content-Type' => 'application/xml', 'Accept' => 'application/xml'})
-    request.body = "<ticket><status type='integer'>#{status_number}</status></ticket>"
-    request.basic_auth @user, @password
-    Net::HTTP.start("www.assembla.com", 80 ) do |http|
-      response = http.request(request)
-      puts response      
-    end
+    request = prepare_request(id)
+    request.body = "<ticket><status type='integer'>#{get_id_from_status(status)}</status></ticket>"
+    send_request(request)
+  end
+
+
+  def update_tickets_description(id, description)
+    request = prepare_request(id)
+    request.body = "<ticket><description>#{description}</description></ticket>"
+    send_request(request)
   end
   
   private
+
+  def prepare_request(id)
+    space = @url.gsub(/https:\/\/www\.assembla.com(.+)/, '\1')
+    url = space + '/' + id.to_s
+    request = Net::HTTP::Put.new(url, initheader = {'Content-Type' => 'application/xml', 'Accept' => 'application/xml'})
+  end
+
+  def send_request(request)
+   request.basic_auth @user, @password
+    Net::HTTP.start("www.assembla.com", 80 ) do |http|
+      response = http.request(request)
+      puts "Response code #{response.code}"
+      puts response.body
+    end
+  end
 
   def get_id_from_status(s) #:nodoc:
     statuses = { "New" => 0,
