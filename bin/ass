@@ -14,7 +14,7 @@ OptionParser.new do |opts|
     puts "Assembla version 0.8.0"
   end
 
-  opts.on("-a", "--all", "Print yours active and new tickets") do |a|
+  opts.on("-a", "--all", "Print your active and new tickets") do |a|
     options[:all] = a
     @assem = AssEmBlr.new
     @assem.print(@assem.find_my_active_tickets)
@@ -32,15 +32,17 @@ OptionParser.new do |opts|
     exit
   end
 
-  opts.on( '-t', '--to TO', 'Assigned to TO') do |to|
+  opts.on( '-t', '--to TO', 'Assigned to TO, example: ass -t "John Doe" ') do |to|
     @assem = AssEmBlr.new
     @assem.print(@assem.find({:assigned_to => to}))
   end
 
-  # opts.on("--toandstatus WHAT", CODE, STATUS, 'Assigned to TO and with STATUS') do |what|
-  #   @assem = AssEmBlr.new
-  #   @assem.print(@assem.find({:assigned_to => what.code, :status => status}))
-  # end
+  opts.on("--toandstatus DATA", 'Assigned to TO and with STATUS, call like this: ass --toandstatus "Name Surname"__New ') do |data|
+    to, status = data.split(/__/)
+    puts "to #{to} status #{status}"
+    @assem = AssEmBlr.new
+    @assem.print(@assem.find({:assigned_to => to, :status => status}))
+  end
 
 end.parse!
 
