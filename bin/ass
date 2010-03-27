@@ -3,6 +3,44 @@
 $:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
 
 require 'assembla'
+require 'optparse'
 
-@assem = AssEmBlr.new
-@assem.print(@assem.find_my_active_tickets)
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: ass [options]"
+
+  opts.on("-v", "--version", "Get version") do |v|
+    options[:verbose] = v
+    puts "Assembla version 0.8.0"
+  end
+
+  opts.on("-a", "--all", "Print yours active and new tickets") do |a|
+    options[:all] = a
+    @assem = AssEmBlr.new
+    @assem.print(@assem.find_my_active_tickets)
+  end
+
+  opts.on("-s", "--status STATUS", "Find ticket with given status") do |status|
+    options[:status] = status
+    @assem = AssEmBlr.new
+    with_id = @assem.find({:status => options[:status]})
+    @assem.print(with_id)
+  end
+
+  opts.on( '-h', '--help', 'Display this screen' ) do
+    puts opts
+    exit
+  end
+
+  opts.on( '-t', '--to TO', 'Assigned to TO') do |to|
+    @assem = AssEmBlr.new
+    @assem.print(@assem.find({:assigned_to => to}))
+  end
+
+  # opts.on("--toandstatus WHAT", CODE, STATUS, 'Assigned to TO and with STATUS') do |what|
+  #   @assem = AssEmBlr.new
+  #   @assem.print(@assem.find({:assigned_to => what.code, :status => status}))
+  # end
+
+end.parse!
+

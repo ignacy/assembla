@@ -65,11 +65,10 @@ class AssEmBlr
   end
 
   def find_my_active_tickets #:nodoc:
-    ass = find_assigned_to(@me)
-    new = find_with_status("New")
-    test = find_with_status("Test")
-    accepted = find_with_status("Accepted")
-    ((accepted + new + ass) - test).uniq
+    ass = self.find({ :assigned_to => @me, :status => "New"})
+    test = self.find({ :assigned_to => @me, :status => "Test"})
+    accepted = self.find({ :assigned_to => @me, :status => "Accepted"})
+    ((accepted + ass) - test)
   end
   
   def find_with_status(status = "New") #:nodoc:
