@@ -24,7 +24,7 @@ bc.. Usage: ass [options]
 
 h2. INSTALATION
 
-p{background:#888}. gem install a2smbla
+p{background:#888}. gem install assembla
 
 h2. LICENSE
 
