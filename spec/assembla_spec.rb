@@ -59,5 +59,18 @@ describe AssEmBlr do
       end
       
     end
+    
   end
+
+  context "with spaces" do
+
+    it "should get spaces list" do
+      @assem.spaces.length.should eql(5)
+    end
+    
+    
+  end
+  
 end
+
+

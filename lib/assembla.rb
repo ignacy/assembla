@@ -1,10 +1,8 @@
 # This program allows you to use command line to perform
-# your typical assembla.com tasks. 
+# your typical assembla.com tasks.
 #
 # Author::    Ignacy Moryc  (mailto:imoryc@gmail.com)
 # License::   MIT
-
-
 
 require 'open-uri'
 require 'net/http'
@@ -35,10 +33,10 @@ class AssEmBlr
     tickets
   end
 
-  # This method parsess all active tickets in your Assembla space 
+  # This method parsess all active tickets in your Assembla space
   def tickets
     all = All.new
-    self.parsed = all.evaluate(self.page) 
+    self.parsed = all.evaluate(self.page)
   end
 
   # Find operates with different arguments:
@@ -70,7 +68,7 @@ class AssEmBlr
     accepted = self.find({ :assigned_to => @me, :status => "Accepted"})
     ((accepted + ass) - test)
   end
-  
+
   def find_with_status(status = "New") #:nodoc:
     st = Status.new
     active = st.evaluate(self.parsed, status)
@@ -123,7 +121,15 @@ class AssEmBlr
     request.body = "<ticket><description>#{description}</description></ticket>"
     send_request(request)
   end
+
   
+  # Gets spaces list from the server
+  def spaces
+    url = "http://www.assembla.com/spaces/my_spaces"
+    request = Net::HTTP::Get.new(url, initheader = {'Content-Type' => 'application/xml', 'Accept' => 'application/xml'})
+    return send_request(request).length
+  end
+
   private
 
   def prepare_request(id)
@@ -133,7 +139,7 @@ class AssEmBlr
   end
 
   def send_request(request)
-   request.basic_auth @user, @password
+    request.basic_auth @user, @password
     Net::HTTP.start("www.assembla.com", 80 ) do |http|
       response = http.request(request)
       puts "Response code #{response.code}"
@@ -149,12 +155,12 @@ class AssEmBlr
       "Test" => 4 }
     return statuses[s]
   end
-  
+
   # This is a helper method for printing table header
   def puts_title_line
-    puts 
+    puts
     puts " ID  |   Assigned to:   |  Status  | Summary "
     puts "---------------------------------------------------------------------------"
   end
-  
+
 end
