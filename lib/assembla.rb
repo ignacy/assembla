@@ -124,8 +124,7 @@ class AssEmBlr
   end
 
   # Gets spaces list from the server
-  def get_spaces
-    url = "http://www.assembla.com/spaces/my_spaces"
+  def get_spaces(url = "http://www.assembla.com/spaces/my_spaces")
     request = Net::HTTP::Get.new(url, initheader = {'Content-Type' => 'application/xml', 'Accept' => 'application/xml'})
     response = send_request(request)
     doc = Hpricot(response)

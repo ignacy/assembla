@@ -73,8 +73,6 @@ describe AssEmBlr do
       @assem.get_spaces
       @assem.spaces[4].name.should == "CMS"
     end
-    
-    
   end
   
 end
