@@ -1,2 +1,3 @@
 config.yml
 pkg/
+spec/test_config.yml

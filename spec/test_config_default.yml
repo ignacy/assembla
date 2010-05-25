@@ -1,0 +1,7 @@
+#PLEASE CHANGE THIS FILE NAME TO test_config.yml
+# and provide password and username if you want to
+# run all the tests
+url: spec/mock.html
+user: Armin Van B
+password: secret
+me: Armin Van B

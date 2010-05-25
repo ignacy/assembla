@@ -115,19 +115,17 @@ class AssEmBlr
     send_request(request)
   end
 
-
   def update_tickets_description(id, description)
     request = prepare_request(id)
     request.body = "<ticket><description>#{description}</description></ticket>"
     send_request(request)
   end
-
   
   # Gets spaces list from the server
   def spaces
     url = "http://www.assembla.com/spaces/my_spaces"
     request = Net::HTTP::Get.new(url, initheader = {'Content-Type' => 'application/xml', 'Accept' => 'application/xml'})
-    return send_request(request).length
+    send_request(request)
   end
 
   private
