@@ -10,12 +10,14 @@ require 'rubygems'
 require 'hpricot'
 require File.dirname(__FILE__) + '/ticket'
 require File.dirname(__FILE__) + '/interpreter'
+require File.dirname(__FILE__) + '/space'
+
 
 $:.unshift File.join(File.dirname(__FILE__), *%w[..])
 
 class AssEmBlr
 
-  attr_accessor :page, :parsed, :url, :user, :password
+  attr_accessor :page, :parsed, :url, :user, :password, :spaces
 
   def initialize(config_file = "~/.assembla")
     config = YAML::parse( File.open(File.expand_path(config_file)))
@@ -120,12 +122,19 @@ class AssEmBlr
     request.body = "<ticket><description>#{description}</description></ticket>"
     send_request(request)
   end
-  
+
   # Gets spaces list from the server
-  def spaces
+  def get_spaces
     url = "http://www.assembla.com/spaces/my_spaces"
     request = Net::HTTP::Get.new(url, initheader = {'Content-Type' => 'application/xml', 'Accept' => 'application/xml'})
-    send_request(request)
+    response = send_request(request)
+    doc = Hpricot(response)
+    self.spaces = []
+    (doc/"space").each do |space|
+      self.spaces << Space.new( (space/"id").inner_html,
+                           (space/"name").inner_html,
+                           (space/"description").inner_html)
+      end
   end
 
   private
@@ -140,8 +149,7 @@ class AssEmBlr
     request.basic_auth @user, @password
     Net::HTTP.start("www.assembla.com", 80 ) do |http|
       response = http.request(request)
-      puts "Response code #{response.code}"
-      puts response.body
+      return response.body
     end
   end
 
