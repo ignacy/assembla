@@ -64,14 +64,16 @@ describe AssEmBlr do
 
   context "with spaces" do
 
+    before :each do
+      @assem.get_spaces(File.dirname(__FILE__) + '/spaces.xml')
+    end
+    
     it "should get spaces list" do
-      @assem.get_spaces
-      @assem.spaces.length.should eql(5)
+      @assem.spaces.length.should eql(2)
     end
 
     it "should get space name" do
-      @assem.get_spaces
-      @assem.spaces[4].name.should == "CMS"
+      @assem.spaces[1].name.should == "Kumulator"
     end
   end
   

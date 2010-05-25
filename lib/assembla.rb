@@ -124,16 +124,23 @@ class AssEmBlr
   end
 
   # Gets spaces list from the server
-  def get_spaces(url = "http://www.assembla.com/spaces/my_spaces")
-    request = Net::HTTP::Get.new(url, initheader = {'Content-Type' => 'application/xml', 'Accept' => 'application/xml'})
-    response = send_request(request)
+  def get_spaces(test = false)
+    if !test
+      url = "http://www.assembla.com/spaces/my_spaces"
+      request = Net::HTTP::Get.new(url, initheader = {'Content-Type' => 'application/xml', 'Accept' => 'application/xml'})
+      response = send_request(request)
+    else
+      response = open(test)
+    end
+        
     doc = Hpricot(response)
+
     self.spaces = []
     (doc/"space").each do |space|
       self.spaces << Space.new( (space/"id").inner_html,
-                           (space/"name").inner_html,
-                           (space/"description").inner_html)
-      end
+                                (space/"name").inner_html,
+                                (space/"description").inner_html)
+    end
   end
 
   private

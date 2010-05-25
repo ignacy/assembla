@@ -1,0 +1,47 @@
+<spaces>
+	<space>
+		<can-join type="boolean">false</can-join>
+
+    	<created-at type="datetime">2007-10-22T10:26:42-03:00</created-at>
+	    <default-showpage>Wiki</default-showpage>
+	    <description>Assembla Space</description>
+	    <id>c5lQB2YXqr2PaFaaeP0Qfc</id>
+
+	    <is-commercial type="boolean">true</is-commercial>
+	    <is-manager type="boolean">true</is-manager>
+	    <is-volunteer type="boolean">false</is-volunteer>
+	    <moderated type="boolean">true</moderated>
+
+	    <name>Assembla</name>
+	    <parent-id></parent-id>
+	    <public-permissions type="integer">0</public-permissions>
+	    <team-permissions type="integer">2</team-permissions>
+
+	    <updated-at type="datetime">2007-12-10T13:01:31-03:00</updated-at>
+	    <wiki-format type="integer">2</wiki-format>
+	    <wiki-name>assembla</wiki-name>
+	</space>
+	<space>
+		<can-join type="boolean">false</can-join>
+
+    	<created-at type="datetime">2007-10-22T10:26:42-03:00</created-at>
+	    <default-showpage>Wiki</default-showpage>
+	    <description>Assembla Space2</description>
+	    <id>c5lQB2YXqr2PaFaaeP0Qfc</id>
+
+	    <is-commercial type="boolean">true</is-commercial>
+	    <is-manager type="boolean">true</is-manager>
+	    <is-volunteer type="boolean">false</is-volunteer>
+	    <moderated type="boolean">true</moderated>
+
+	    <name>Kumulator</name>
+	    <parent-id></parent-id>
+	    <public-permissions type="integer">0</public-permissions>
+	    <team-permissions type="integer">2</team-permissions>
+
+	    <updated-at type="datetime">2007-12-10T13:01:31-03:00</updated-at>
+	    <wiki-format type="integer">2</wiki-format>
+	    <wiki-name>assembla</wiki-name>
+	</space>
+
+</spaces>
