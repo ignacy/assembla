@@ -5,7 +5,7 @@ describe AssEmBlr do
   before(:all) do
     @assem = AssEmBlr.new(File.dirname(__FILE__) + '/test_config.yml')
   end
-  
+
   context "getting selected link contents" do
     it "should parse requested page from Assembla" do
       @assem.page.should be_kind_of(Hpricot::Doc)
@@ -19,13 +19,13 @@ describe AssEmBlr do
     @assem.send(:get_id_from_status, "Fixed").should eql(3)
     @assem.send(:get_id_from_status, "Invalid").should eql(2)
   end
-  
+
   context "searching for tickets" do
     it "should use 'Assiged To' filter" do
       mine = @assem.find({:assigned_to => "Above & Beyond"})
       mine.length.should eql(2)
     end
-    
+
     it "should filter tickets by id" do
       with_id = @assem.find({:id => 841})
       with_id.summary.should match /Fix tab order/
@@ -57,9 +57,7 @@ describe AssEmBlr do
         a = @assem.find({:assigned_to => "Armin Van B", :status => "Test"})
         a.count.should eql(1)
       end
-      
     end
-    
   end
 
   context "with spaces" do
@@ -67,7 +65,7 @@ describe AssEmBlr do
     before :each do
       @assem.get_spaces(File.dirname(__FILE__) + '/spaces.xml')
     end
-    
+
     it "should get spaces list" do
       @assem.spaces.length.should eql(2)
     end
@@ -80,11 +78,11 @@ describe AssEmBlr do
   context "updating ticket data" do
     # I have some problems with test in this section
     # I don't want to use the assembla service so I try to mock it
-    # but I haven't found a good way to do soo.
+    # but I haven't found a good way to do so.
     # All I do here is mock Net::HTTP object's start method
     # which lets me check if the request was prepared and
     # that the program attempeted to send it
-    
+
     before :each do
       response = mock(:body => "everything's ok")
       Net::HTTP.stub(:start).and_return do |*args|
