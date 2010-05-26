@@ -76,7 +76,28 @@ describe AssEmBlr do
       @assem.spaces[1].name.should == "Kumulator"
     end
   end
-  
+
+  context "updating ticket data" do
+    # I have some problems with test in this section
+    # I don't want to use the assembla service so I try to mock it
+    # but I haven't found a good way to do soo.
+    # All I do here is mock Net::HTTP object's start method
+    # which lets me check if the request was prepared and
+    # that the program attempeted to send it
+    
+    before :each do
+      response = mock(:body => "everything's ok")
+      Net::HTTP.stub(:start).and_return do |*args|
+        response.body
+      end
+    end
+
+    it "should change tickets description" do
+      @assem.update_tickets_description(10, "New description").should == "everything's ok"
+    end
+
+    it "should change tickets status" do
+      @assem.update_tickets_status(1, 2).should == "everything's ok"
+    end
+  end
 end
-
-
