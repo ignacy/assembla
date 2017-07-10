@@ -1,3 +1,7 @@
+!https://badge.fury.io/rb/assembla.svg!:https://badge.fury.io/rb/assembla
+
+b. DEPRECATED: I have not touched this code since I wrote it years ago, and I don't plan to maintain it. Let's say it's here for sentimental value.
+
 h1. assembla - command line access toy your assembla.com spaces
 
 p. This gem is a Ruby client that lets you use command line to preform some common assembla tasks, like getting filtered list of tickets, adding new ticket or changeing tickets metadata.
@@ -15,8 +19,8 @@ bc.. Usage: ass [options]
     -a, --all                        Print your active and new tickets
     -i, --id ID                      Get ticket with id = ID
     -s, --status STATUS              Find tickets with given status
-    -t, --to TO                      Assigned to TO, example: ass -t "John Doe" 
-        --toandstatus DATA           Assigned to TO and with STATUS, call like this: ass --toandstatus "Name Surname"__New 
+    -t, --to TO                      Assigned to TO, example: ass -t "John Doe"
+        --toandstatus DATA           Assigned to TO and with STATUS, call like this: ass --toandstatus "Name Surname"__New
     -u, --updateStatus DATA          Change tickets status, call like this: ass -u ID__NEW_STATUS
     -d, --updateDescription DATA     Change tickets descriptino. Exmple ass -d ID__"New description text"
     -v, --version                    Get version
